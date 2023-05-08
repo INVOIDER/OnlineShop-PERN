@@ -1,4 +1,5 @@
 const Pool = require('pg').Pool //Реализация подключения к бд с помощью pool
+require('dotenv').config() //Подключаем библиотеку переменных окружения
 const pool = new Pool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -6,5 +7,4 @@ const pool = new Pool({
     port: process.env.DB_PORT,
     database: process.env.DB_NAME
 })
-pool.connect()
 module.exports = {pool}
