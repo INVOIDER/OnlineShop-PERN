@@ -1,0 +1,34 @@
+name: frontend tester
+
+on:
+  push:
+    branches: [ frontend ]
+
+env:
+  REPO_NAME: ${{ github.repository }}
+  COMMIT_SHA: ${{ github.sha }}
+  COMMIT_AUTHOR: ${{ github.actor }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build
+
+    - name: Test
+      run: npm run test
+
+    - name: Send message to Telegram
+      uses: appleboy/telegram-action@v2
+      with:
+        to: ${{ secrets.TELEGRAM_CHAT_ID }}
+        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        message: "Репозиторий: ${{ env.REPO_NAME }}\nSHA Коммита: ${{ env.COMMIT_SHA }}\nКоммит отправил: ${{ env.COMMIT_AUTHOR }}\n\nBuild Status: ${{ job.status }}\nTest status: ${{ job.status_1 }}\n}"
