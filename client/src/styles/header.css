@@ -1,0 +1,33 @@
+.header{
+    max-width: 100%;
+    height: auto;
+    background-color: #755BB4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh;
+}
+.logo img{
+    width: 100%;
+    height: auto;
+}
+.navbar{
+    /*background-color: #fdc97a;*/
+    display: flex;
+    max-width: 10vw;
+    height: auto;
+}
+.navbar ul{
+    height: inherit;
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+}
+.navbar ul li{
+    margin: auto 2vh;
+}
+.nav-block{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
