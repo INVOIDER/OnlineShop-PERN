@@ -1,0 +1,34 @@
+name: Node.js CI with Telegram Notification
+
+on: push
+
+jobs:
+  build_and_notify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.15]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+        env:
+          CI: true
+
+      - name: Notify Telegram
+        uses: appleboy/telegram-action@v0.0.3
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            Repository: ${{ github.repository }}
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+            Status: ${{ job.status }}
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
