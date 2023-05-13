@@ -14,7 +14,9 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "dev": "nodemon server/server.js"
+    "dev": "nodemon server/server.js",
+    "build": "echo Симуляция процесса билда",
+    "test": "echo Симуляция процесса тестирования"
   },
   "keywords": [
     "react",

@@ -17,18 +17,22 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build
-      - run: npm test
+      - run: npm run test
         env:
           CI: true
 
       - name: Notify Telegram
-        uses: appleboy/telegram-action@v0.0.3
+        uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           message: |
             Repository: ${{ github.repository }}
+            
             Commit: ${{ github.sha }}
+            
             Author: ${{ github.actor }}
+            
             Status: ${{ job.status }}
+            
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
