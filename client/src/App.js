@@ -2,9 +2,10 @@ import Header from "./components/Header";
 import "./styles/index.css"
 
 function App() {
+    const name ="Пётр"
   return (
     <div className="App">
-        <Header username="Пётр"/>
+        <Header username={name}/>
     </div>
   );
 }

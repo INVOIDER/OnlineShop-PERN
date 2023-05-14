@@ -1,0 +1,30 @@
+name: Node.js CI with Telegram Notification
+
+on: push
+
+jobs:
+  build_and_notify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.15]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Notify Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            Repository: ${{ github.repository }}
+            
+            Commit: ${{ github.sha }}
+            
+            Branch: ${{ github.ref }}
+            
+            Author: ${{ github.actor }}
+            
+            Status: ${{ job.status }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
