@@ -29,8 +29,8 @@ class UserController{ //Класс для взаимодействия с пол
     }
     async login(req,res,next){
         const {email,password} = req.body
-        const user = await pool.query('SELECT id,email,password,role,name FROM public.user WHERE email=$1',[email])
-        if ((0 === user.rows[0].length)){
+        let user = await pool.query('SELECT id,email,password,role,name FROM public.user WHERE email=$1',[email])
+        if ((typeof user.rows[0] == "undefined")){
             return next(ApiError.internal('Неверный email'))
         }
         let comparePassword = bcrypt.compareSync(password,user.rows[0].password)
@@ -42,28 +42,30 @@ class UserController{ //Класс для взаимодействия с пол
         const token = generateJWT(user.rows[0].id,email,user.rows[0].role,user.rows[0].name,"\n\n\n\n")
         return res.json({token})
     }
-    async updateUser(req,res){
+    async updateUser(req,res,next){
         try {
             const reqBody = req.body; // получаем данные пользователя из запроса
+            const reqUser =req.user
             if (reqBody.hasOwnProperty('newname'))
             {
-                await pool.query('UPDATE public.user SET name=$2 WHERE email=$1',[reqBody.email,reqBody.newname]); // обновляем данные пользователя в базе данных
+                await pool.query('UPDATE public.user SET name=$2 WHERE email=$1',[reqUser.email,reqBody.newname]); // обновляем данные пользователя в базе данных
                 res.status(200).json({ message: 'Данные пользователя успешно обновлены' });
             }
             if (reqBody.hasOwnProperty('newsurname'))
             {
-                await pool.query('UPDATE public.user SET surname=$2 WHERE email=$1',[reqBody.email,reqBody.newsurname]); // обновляем данные пользователя в базе данных
+                await pool.query('UPDATE public.user SET surname=$2 WHERE email=$1',[reqUser.email,reqBody.newsurname]); // обновляем данные пользователя в базе данных
                 res.status(200).json({ message: 'Данные пользователя успешно обновлены' });
             }
             if (reqBody.hasOwnProperty('newpassword'))
             {
-                const hashedPassword = await bcrypt.hash(reqBody.password, 5); // хэшируем пароль
-                let lastPassword = pool.query('SELECT password FROM public.user WHERE email=$1',[reqBody.newemail])
-                if(hashedPassword === lastPassword)
-                {
-                    res.json({message: 'Пароль не может совпадать с предыдущим!'})
+                console.log("ENter")
+                const hashedPassword = await bcrypt.hash(reqBody.newpassword, 5); // хэшируем пароль
+                let lastPassword = await pool.query('SELECT password FROM public.user WHERE email=$1',[reqUser.email])
+                let comparePassword = bcrypt.compareSync(hashedPassword,lastPassword.rows[0].password)
+                if (!comparePassword){
+                    return next(ApiError.internal('Пароль не может совпадать с предыдущим!'))
                 }
-                await pool.query('UPDATE public.user SET password=$2 WHERE email=$1',[reqBody.email,hashedPassword]); // обновляем данные пользователя в базе данных
+                await pool.query('UPDATE public.user SET password=$2 WHERE email=$1',[reqUser.email,hashedPassword]); // обновляем данные пользователя в базе данных
                 res.status(200).json({ message: 'Данные пользователя успешно обновлены' });
             }
         } catch (error) {
@@ -76,11 +78,12 @@ class UserController{ //Класс для взаимодействия с пол
     }
     async deleteUser(req,res){
         try {
-            const {email} = req.body; // получаем email пользователя из запроса
-            const user = await pool.query('DELETE FROM public.user WHERE email=$1',[email]); // удаляем пользователя из базы данных
-            if (!user) {
+            const {email} = req.user; // получаем email пользователя из запроса
+            const user = await pool.query('SELECT * FROM public.user WHERE email=$1',[email]);
+            if (!user.rows[0]){
                 return res.status(404).json({ message: 'Пользователь не найден' });
             }
+            await pool.query('DELETE FROM public.user WHERE email=$1',[email]); // удаляем пользователя из базы данных
             res.status(200).json({ message: 'Пользователь успешно удален' });
         } catch (error) {
             res.status(500).json({ message: error.message });
