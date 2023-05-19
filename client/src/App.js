@@ -1,12 +1,20 @@
 import Header from "./components/Header";
 import "./styles/index.css"
-
+import Footer from "./components/Footer";
+import AppRouter from "./components/AppRouter";
+import {BrowserRouter} from "react-router-dom";
 function App() {
-    const name ="Пётр"
+    const name =""
   return (
-    <div className="App">
-        <Header username={name}/>
-    </div>
+      <BrowserRouter>
+          <div className="App">
+              <Header username={name}/>
+              <div className="content-wrapper">
+                  <AppRouter/>
+              </div>
+              <Footer/>
+          </div>
+      </BrowserRouter>
   );
 }
 

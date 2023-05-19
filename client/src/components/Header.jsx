@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import Style from "../styles/header.css"
+import "../styles/header.css"
 
 /**
  * Header страницы. Содержит логотип и навигационную панель
@@ -18,8 +18,8 @@ const Header = (props) => {
             <nav className="navbar">
                 {props.username ?
                     <ul>
-                        <li><Link to='/user/profile'>
-                            <div className="nav block">
+                        <li><Link to='/profile'>
+                            <div className="nav-block">
                                 <img src={require ("../mediaSrc/header/user.png")} alt="User"/>
                                 <span>{props.username}</span>
                             </div>
@@ -33,10 +33,9 @@ const Header = (props) => {
                     </ul>
                     :
                     <ul>
-                        <li><Link to='/user/profile'>Войти</Link></li>
+                        <li><Link to='/login'>Войти</Link></li>
                     </ul>
                 }
-
             </nav>
         </header>
     );

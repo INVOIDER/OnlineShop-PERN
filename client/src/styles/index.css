@@ -6,3 +6,24 @@
     text-decoration: none;
     color: black;
 }
+.App{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 320px;
+}
+.content-wrapper{
+    width: 70vw;
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: auto;
+    flex: 1;
+    height: 100%;
+
+}
+@media screen and (max-width: 1000px) {
+    .content-wrapper {
+        width: 100%;
+
+    }
+}
