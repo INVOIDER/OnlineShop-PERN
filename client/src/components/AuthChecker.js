@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Navigate, useLocation} from "react-router-dom";
+import {Context} from "../index";
 
 /**
  * Функция проверяет, вошел ли пользователь в систему, и перенаправляет его на страницу авторизации, если он этого не сделал
@@ -9,8 +10,10 @@ import {Navigate, useLocation} from "react-router-dom";
  */
 const AuthChecker = ({children}) => {
     const location = useLocation();
-    const auth = false //Заглушка пока не добавлю сервер
-    if(!auth){
+
+    const {user} = useContext(Context)
+
+    if(!user.isAuth){
         return <Navigate to='/login' state={{from: location}}/>
     }
     return children

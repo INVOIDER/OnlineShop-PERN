@@ -5,6 +5,7 @@
     font-family: 'Montserrat', sans-serif;
     text-decoration: none;
     color: black;
+    box-sizing: border-box;
 }
 .App{
     display: flex;
@@ -12,18 +13,29 @@
     height: 100vh;
     min-width: 320px;
 }
-.content-wrapper{
+.content-wrapper{ /*Класс поля контента страницы*/
     width: 70vw;
-    box-sizing: border-box;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     margin: auto;
     flex: 1;
     height: 100%;
+    overflow: auto;
+}
+
+
+.noselect { /*Класс для невыделяемых объектов*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
 }
-@media screen and (max-width: 1000px) {
+
+@media screen and (max-width: 1200px) {
     .content-wrapper {
         width: 100%;
-
+        padding: 2%;
     }
 }

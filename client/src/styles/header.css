@@ -1,15 +1,19 @@
 .header{
     width: 100%;
-    height: 5vh;
     background-color: #755BB4;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-block: 1vh;
+    padding-block: 2vh;
 }
 img{
     max-width: 100%;
     height: auto;
+}
+.left-nav{
+    display: flex;
+    align-items: center;
+    gap: 2vh;
 }
 .navbar{
     /*background-color: #fdc97a;*/

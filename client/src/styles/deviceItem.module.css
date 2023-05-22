@@ -1,0 +1,104 @@
+.deviceItem{
+    min-width: 14vw;
+    height: 35vh;
+    cursor: pointer;
+    transition: all .5s;
+    padding: 1vh;
+    display: grid;
+    grid-gap: 1%;
+    grid-template-areas: 'img img'
+                         'name name'
+                         'price amount'
+                         'BuyBtn BuyBtn'   ;
+}
+.deviceItem:hover{
+    box-shadow: 0 2px 16px rgba(0,0,0,.24);
+    transform: translateY(-5px);
+}
+.deviceName{
+    grid-area: name;
+    width: 100%;
+    justify-self: start;
+    padding: 2% 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 8vh;
+    line-height: 1.5rem;
+    font-size: 1.1rem;
+
+}
+.deviceImg{
+    grid-area: img;
+    overflow: hidden;
+}
+.deviceAmount{
+    justify-self: end;
+    grid-area: amount;
+
+}
+.Img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.devicePrice{
+    grid-area: price;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+.deviceBuyBtn{
+    grid-area: BuyBtn;
+    padding: 5%;
+    height: 115%;
+}
+.hidden{
+    opacity: 0;
+    grid-area: BuyBtn;
+    padding: 5%;
+}
+.available{
+    color: green;
+}
+.notAvailable{
+    color: red;
+}
+@media screen and (max-width: 1300px) {
+    .deviceItem{
+        grid-template-areas: 'img img'
+                         'name name'
+                         'price price'
+                         'amount amount'
+                         'BuyBtn BuyBtn'   ;
+    }
+    .deviceAmount{
+        justify-self: start;
+    }
+    .deviceBuyBtn{
+        justify-self: end;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .deviceItem{
+        width: 100%;
+        height: 40vh;
+        grid-template-areas: 'img img'
+                         'name name'
+                         'price BuyBtn'
+                         'amount BuyBtn';
+    }
+    .deviceName{
+        align-self: center;
+    }
+    .deviceImg{
+
+    }
+    .deviceItem:hover{
+        box-shadow: 0 0 0 0;
+        transform: none;
+    }
+    .deviceBuyBtn{
+        width: 70%;
+        padding: 0;
+    }
+}

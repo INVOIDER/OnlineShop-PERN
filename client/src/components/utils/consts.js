@@ -4,5 +4,5 @@ export const REG_ROUTE ='/registration'
 export const SHOP_ROUTE ='/'
 export const BASKET_ROUTE ='/basket'
 export const PROFILE_ROUTE ='/profile'
-export const DEVICE_ROUTE ='/device'
 export const DEVICES_ROUTE ='/devices'
+export const DEVICE_ROUTE = DEVICES_ROUTE + "/:id"

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import "../styles/header.css"
+import {observer} from "mobx-react-lite";
 
 /**
  * Header страницы. Содержит логотип и навигационную панель
@@ -8,23 +9,26 @@ import "../styles/header.css"
  * @returns {JSX.Element}
  * @constructor
  */
-const Header = (props) => {
-    console.log(props)
+const Header = observer(() => {
+    let username
     return (
         <header className="header">
-            <div className="logo">
+            <div className="left-nav">
                 <Link to="/"><img src={require ("../mediaSrc/header/logo.png")} alt="Device division"/></Link>
+                <div className="categories">
+                    <Link to="/devices">Девайсы</Link>
+                </div>
             </div>
             <nav className="navbar">
-                {props.username ?
+                {username ?
                     <ul>
                         <li><Link to='/profile'>
                             <div className="nav-block">
                                 <img src={require ("../mediaSrc/header/user.png")} alt="User"/>
-                                <span>{props.username}</span>
+                                <span>{username}</span>
                             </div>
                         </Link></li>
-                        <li><Link to='/user/cart'>
+                        <li><Link to='/cart'>
                             <div className="nav-block">
                                 <img src={require ("../mediaSrc/header/shopping_cart.png")} alt="cart"/>
                                 <span>Корзина</span>
@@ -39,6 +43,6 @@ const Header = (props) => {
             </nav>
         </header>
     );
-};
+});
 
 export default Header;
