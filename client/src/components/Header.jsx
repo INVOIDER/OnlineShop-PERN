@@ -1,7 +1,9 @@
-import React from 'react';
-import {Link} from "react-router-dom";
-import "../styles/header.css"
+import React, {useContext, useState} from 'react';
+import {Link, NavLink} from "react-router-dom";
+import classes from "../styles/header.module.css"
 import {observer} from "mobx-react-lite";
+import {Context} from "../index";
+import {ADMIN_ROUTE, BASKET_ROUTE, DEVICES_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE} from "./utils/consts";
 
 /**
  * Header страницы. Содержит логотип и навигационную панель
@@ -10,37 +12,57 @@ import {observer} from "mobx-react-lite";
  * @constructor
  */
 const Header = observer(() => {
-    let username
+    const [isBurger, setIsBurger] = useState(false)
+    const {user} = useContext(Context)
+
+    const burgerMenuHandler = () =>{
+        setIsBurger(!isBurger)
+    }
+    let isAdmin = (user.role === "Admin")
+    isAdmin = false //Заглушка
     return (
-        <header className="header">
-            <div className="left-nav">
-                <Link to="/"><img src={require ("../mediaSrc/header/logo.png")} alt="Device division"/></Link>
-                <div className="categories">
-                    <Link to="/devices">Девайсы</Link>
-                </div>
+        <header className={classes.header}>
+            <div >
+                <Link to={SHOP_ROUTE}><img src={require ("../mediaSrc/header/logo.png")} alt="Device division"/></Link>
             </div>
-            <nav className="navbar">
-                {username ?
+            <div className={isBurger ? classes.navbarBurger : classes.navbar}>
+                <NavLink to={DEVICES_ROUTE}>
+                <div className= {classes.categories}>
+                    <img src={require ("../mediaSrc/header/categories.png")} alt="Categories"/> <span className={classes.span}>Девайсы</span>
+                </div></NavLink>
+                {user.isAuth ?
                     <ul>
-                        <li><Link to='/profile'>
-                            <div className="nav-block">
+                        <li><NavLink to={PROFILE_ROUTE}>
+                            <div className={classes.navBlock}>
                                 <img src={require ("../mediaSrc/header/user.png")} alt="User"/>
-                                <span>{username}</span>
+                                <span>Пётр</span>
                             </div>
-                        </Link></li>
-                        <li><Link to='/cart'>
-                            <div className="nav-block">
-                                <img src={require ("../mediaSrc/header/shopping_cart.png")} alt="cart"/>
-                                <span>Корзина</span>
-                            </div>
-                            </Link></li>
+                        </NavLink></li>
+                        {isAdmin ?
+                            <li><NavLink to={ADMIN_ROUTE}>
+                                <div className={classes.navBlock}>
+                                    <img src={require ("../mediaSrc/header/admin.png")} alt="Admin"/>
+                                    <span>Админ панель</span>
+                                </div>
+                            </NavLink></li>
+                            :
+                            <li><NavLink to={BASKET_ROUTE}>
+                                <div className={classes.navBlock}>
+                                    <img src={require ("../mediaSrc/header/shopping_cart.png")} alt="cart"/>
+                                    <span>Корзина</span>
+                                </div>
+                            </NavLink></li>
+                        }
                     </ul>
                     :
                     <ul>
-                        <li><Link to='/login'>Войти</Link></li>
+                        <li><NavLink to={LOGIN_ROUTE}>Войти</NavLink></li>
                     </ul>
                 }
-            </nav>
+            </div>
+            <div className={classes.navBurgerBtn} onClick={burgerMenuHandler}>
+                <img src={require("../mediaSrc/header/burger.png") } alt="burger"/>
+            </div>
         </header>
     );
 });
