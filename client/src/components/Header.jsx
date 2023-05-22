@@ -31,22 +31,22 @@ const Header = observer(() => {
                     <img src={require ("../mediaSrc/header/categories.png")} alt="Categories"/> <span className={classes.span}>Девайсы</span>
                 </div></NavLink>
                 {user.isAuth ?
-                    <ul>
-                        <li><NavLink to={PROFILE_ROUTE}>
+                    <ul className={classes.ul}>
+                        <li className={classes.li}><NavLink to={PROFILE_ROUTE}>
                             <div className={classes.navBlock}>
                                 <img src={require ("../mediaSrc/header/user.png")} alt="User"/>
-                                <span>Пётр</span>
+                                <span>User</span>
                             </div>
                         </NavLink></li>
                         {isAdmin ?
-                            <li><NavLink to={ADMIN_ROUTE}>
+                            <li className={classes.li}><NavLink to={ADMIN_ROUTE}>
                                 <div className={classes.navBlock}>
                                     <img src={require ("../mediaSrc/header/admin.png")} alt="Admin"/>
                                     <span>Админ панель</span>
                                 </div>
                             </NavLink></li>
                             :
-                            <li><NavLink to={BASKET_ROUTE}>
+                            <li className={classes.li}><NavLink to={BASKET_ROUTE}>
                                 <div className={classes.navBlock}>
                                     <img src={require ("../mediaSrc/header/shopping_cart.png")} alt="cart"/>
                                     <span>Корзина</span>
@@ -55,8 +55,8 @@ const Header = observer(() => {
                         }
                     </ul>
                     :
-                    <ul>
-                        <li><NavLink to={LOGIN_ROUTE}>Войти</NavLink></li>
+                    <ul className={classes.ul}>
+                        <li className={classes.li}><NavLink to={LOGIN_ROUTE}><span>Войти</span></NavLink></li>
                     </ul>
                 }
             </div>

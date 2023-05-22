@@ -8,6 +8,7 @@
     height: 7vh;
     font-size: 1.2rem;
     gap: 2%;
+    box-sizing: border-box;
 }
 .img{
     max-width: 100%;
@@ -30,12 +31,13 @@
     max-width: 100%;
     height: auto;
 }
-ul{
-    height: auto;
+.ul{
     display: flex;
+    flex-direction: row;
+    height: auto;
     list-style: none;
 }
-li{
+.li{
     margin: auto 2vh;
 }
 .navBlock{
@@ -77,13 +79,15 @@ li{
     .navBlock{
         flex-direction: row;
     }
-    ul{
+    .ul{
+        padding: 5% 0;
         display: block;
         gap: 2vh;
     }
-    li{
+    .li{
         width: 100vw;
-        padding: 2% 0;
+        padding: 5% 0;
+        margin: 0;
     }
     .categories{
         width: 100vw;

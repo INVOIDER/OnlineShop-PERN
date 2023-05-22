@@ -9,9 +9,9 @@ const FilterBar = observer(() => {
     return (
         <div className={classes.filterbarContainer}>
             <div className={classes.blockName}>
-                <img className={classes.Img} src={require ("../mediaSrc/devices/filter.png")} alt="Фильтер"/>Фильтр</div>
+                <img className={classes.Img} src={require ("../mediaSrc/devices/filter.png")} alt="Фильтр"/>Фильтр</div>
             <section className={classes.filterBlock}>
-                <h1>Производители</h1>
+                <div className={classes.SectionName}>Производители</div>
                 <ul>
                 {device.brands.map(brand =>
                     <li key={brand.id} className={classes.li}>
