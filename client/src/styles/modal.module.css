@@ -1,0 +1,71 @@
+.modalClosed{
+    display: none;
+    pointer-events: none;
+}
+.modalActive{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.2);
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    overflow: auto;
+
+}
+.modalError{
+    color: red;
+}
+.modalSuccess{
+    color: green;
+}
+.modalForm{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    min-width: 15vw;
+    min-height: 15vh;
+}
+.modalName{
+    text-align: center;
+    font-size: 1.3rem;
+    border-bottom: 2px solid black;
+    border-radius: 10%;
+    padding: 1vh 0;
+    margin-bottom: 2vh;
+}
+.modalSelect{
+
+}
+.formElement{
+    display: flex;
+    justify-content: space-between;
+}
+.modalOption{
+}
+.modalFooter{
+    width: 100%;
+}
+.submitBtn{
+    float: right;
+    justify-content: end;
+}
+.modalBody{
+    padding: 5vh;
+    border-radius: 5%;
+    background-color: white;
+}
+.modalCloseBtn{
+    padding-top: 2vh;
+    float: right;
+    height: 5vh;
+    width: 30%;
+}
+
+@media screen and (max-width: 1000px) {
+    .modalBody{
+        width: 100vw;
+    }
+}

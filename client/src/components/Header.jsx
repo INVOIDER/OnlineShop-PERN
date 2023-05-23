@@ -19,7 +19,7 @@ const Header = observer(() => {
         setIsBurger(!isBurger)
     }
     let isAdmin = (user.role === "Admin")
-    isAdmin = false //Заглушка
+    isAdmin = true //Заглушка
     return (
         <header className={classes.header}>
             <div >

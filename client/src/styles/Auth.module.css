@@ -17,9 +17,7 @@
     flex-direction: column;
     gap: 2vh;
 }
-.inputBlock{
 
-}
 .authButtons{
     display: flex;
     flex-direction: column;

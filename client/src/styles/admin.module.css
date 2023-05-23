@@ -1,0 +1,41 @@
+.adminPage{
+    height: 100%;
+}
+.pageName{
+    padding: 2vh 0;
+    font-size: 2rem;
+    text-align: center;
+}
+.adminContent{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+.adminSection{
+    width: 25vw;
+    padding: 2%;
+    border-radius: 5%;
+    border: 1px solid black;
+}
+.sectionName{
+    font-size: 1.2rem;
+    padding: 2vh 0;
+    text-align: center;
+}
+.sectionContent{
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 2%;
+    margin: 0 auto;
+}
+@media screen and (max-width: 1000px) {
+    .adminSection{
+        width: 90vw;
+        margin: 0 auto;
+    }
+    .sectionContent{
+        width: 100%;
+    }
+}

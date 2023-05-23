@@ -11,6 +11,9 @@
 ul{
     display: block;
 }
+textarea{
+    resize: vertical;
+}
 .App{
     display: flex;
     flex-direction: column;
@@ -34,7 +37,6 @@ ul{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
 
 @media screen and (max-width: 1300px) {

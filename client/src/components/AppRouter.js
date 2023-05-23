@@ -15,6 +15,7 @@ import AuthChecker from "./AuthChecker";
 import Auth from "../pages/auth";
 import Devices from "../pages/devices";
 import DevicePage from "../pages/DevicePage";
+import Admin from "../pages/Admin";
 
 /**
  * Данный компонент загружает вместо себя нужные страницы
@@ -30,7 +31,7 @@ const AppRouter = () => {
             <Route path={REG_ROUTE} element={<Auth/>}/>
             <Route path={DEVICES_ROUTE} element={<Devices/>}/>
             <Route path={DEVICE_ROUTE} element={<DevicePage/>}/>
-            <Route path={ADMIN_ROUTE} element= {<AuthChecker><ErrorPage/></AuthChecker>}/>
+            <Route path={ADMIN_ROUTE} element= {<AuthChecker><Admin/></AuthChecker>}/>
             <Route path={BASKET_ROUTE} element= {<AuthChecker><ErrorPage/></AuthChecker>}/>
             <Route path={PROFILE_ROUTE} element= {<AuthChecker><ErrorPage/></AuthChecker>}/>
             <Route path="*" element={<ErrorPage/>}/>
