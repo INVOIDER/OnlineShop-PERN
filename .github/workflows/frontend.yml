@@ -1,34 +1,31 @@
-name: frontend tester
+name: Node.js CI with Telegram Notification
 
-on:
-  push:
-    branches: [ frontend ]
-
-env:
-  REPO_NAME: ${{ github.repository }}
-  COMMIT_SHA: ${{ github.sha }}
-  COMMIT_AUTHOR: ${{ github.actor }}
+on: push
 
 jobs:
-  build:
+  build_and_notify:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.15]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - name: Notify Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            Repository: ${{ github.repository }}
+            
+            Commit: ${{ github.sha }}
+            
+            Branch: ${{ github.ref }}
+            
+            Author: ${{ github.actor }}
+            
+            Status: ${{ job.status }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build
-      run: npm run build
-
-    - name: Test
-      run: npm run test
-
-    - name: Send message to Telegram
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        message: "Репозиторий: ${{ env.REPO_NAME }}\nSHA Коммита: ${{ env.COMMIT_SHA }}\nКоммит отправил: ${{ env.COMMIT_AUTHOR }}\n\nBuild Status: ${{ job.status }}\nTest status: ${{ job.status_1 }}\n}"

@@ -1,0 +1,36 @@
+.filterbarContainer{
+    border: 1px solid black;
+    padding: 2vh;
+    min-width: 11vw;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+.blockName{
+    margin-bottom: 2vh;
+    font-size: 1.3rem;
+}
+.SectionName{
+    font-size: 1.2rem;
+    word-wrap: break-word;
+    height: 5vh;
+}
+.li{
+    padding: 1vh 1vh;
+}
+.filterBlock{
+    background-color: #d5d5d5;
+    overflow: hidden;
+}
+.filterbarModal{
+
+}
+.Img{
+    max-width: 1.4rem;
+    max-height: 1.4rem;
+}
+
+@media screen and (max-width: 1400px) {
+    .li{
+        padding: 1vh 0;
+    }
+}

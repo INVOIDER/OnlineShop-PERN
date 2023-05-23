@@ -1,0 +1,13 @@
+.deviceList{
+    display: grid;
+    padding: 2vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    flex: 1
+}
+@media screen and (max-width: 1000px) {
+    .deviceList{
+        padding: 1%;
+        grid-gap: 1%;
+        grid-template-columns: 1fr;
+    }
+}
