@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import classes from "../styles/header.module.css"
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
@@ -14,12 +14,21 @@ import {ADMIN_ROUTE, BASKET_ROUTE, DEVICES_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SH
 const Header = observer(() => {
     const [isBurger, setIsBurger] = useState(false)
     const {user} = useContext(Context)
-
+    let navigate = useNavigate();
     const burgerMenuHandler = () =>{
         setIsBurger(!isBurger)
     }
-    let isAdmin = (user.role === "Admin")
-    isAdmin = true //Заглушка
+    /**
+     * Функция выхода из аккаунта
+     * @constructor
+     */
+    const LogOut = ()=>{
+        user.setUser({})
+        user.setIsAuth(false)
+        navigate(LOGIN_ROUTE)
+    }
+    let isAdmin = (user.user.data?.role ?  user.user.data.role === "Admin" :false)
+    console.log(user.user.data?.role ?  user.user.data.role === "Admin" :false)
     return (
         <header className={classes.header}>
             <div >
@@ -32,10 +41,12 @@ const Header = observer(() => {
                 </div></NavLink>
                 {user.isAuth ?
                     <ul className={classes.ul}>
+                        <li className={classes.li} onClick={LogOut}>Выйти</li>
+
                         <li className={classes.li}><NavLink to={PROFILE_ROUTE}>
                             <div className={classes.navBlock}>
                                 <img src={require ("../mediaSrc/header/user.png")} alt="User"/>
-                                <span>User</span>
+                                <span>{user.user.data.name}</span>
                             </div>
                         </NavLink></li>
                         {isAdmin ?

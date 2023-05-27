@@ -30,6 +30,7 @@ textarea{
 }
 
 
+
 .noselect { /*Класс для невыделяемых объектов*/
     -webkit-touch-callout: none;
     -webkit-user-select: none;

@@ -8,20 +8,20 @@ const FilterBar = observer(() => {
     const {device} = useContext(Context)
     return (
         <div className={classes.filterbarContainer}>
-            <div className={classes.blockName}>
-                <img className={classes.Img} src={require ("../mediaSrc/devices/filter.png")} alt="Фильтр"/>Фильтр</div>
-            <section className={classes.filterBlock}>
-                <div className={classes.SectionName}>Производители</div>
-                <ul>
-                {device.brands.map(brand =>
-                    <li key={brand.id} className={classes.li}>
-                        <label className="noselect">
-                            <input type="checkbox" id={"brandId_" + brand.id}/>{brand.name}
-                        </label>
-                    </li>
-                )}
-                </ul>
-            </section>
+            <div>
+                <div className={classes.blockName}>
+                    <img className={classes.Img} src={require ("../mediaSrc/devices/filter.png")} alt="Фильтр"/>Фильтр</div>
+                <section className={classes.filterBlock}>
+                    <div className={classes.SectionName}>Производители</div>
+                    <ul>
+                        {device.brands.map(brand =>
+                            <li className="noselect" key={brand.id}>
+                                <div className={device.selectedBrand === brand.id ?  classes.SectionElementActive : classes.SectionElement} id={"brandId_" + brand.id} onClick={()=> {device.setSelectedBrand(brand.id)}}>{brand.name}</div>
+                            </li>
+                        )}
+                    </ul>
+                </section>
+            </div>
         </div>
     );
 });

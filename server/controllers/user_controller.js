@@ -58,7 +58,6 @@ class UserController{ //Класс для взаимодействия с пол
             }
             if (reqBody.hasOwnProperty('newpassword'))
             {
-                console.log("ENter")
                 const hashedPassword = await bcrypt.hash(reqBody.newpassword, 5); // хэшируем пароль
                 let lastPassword = await pool.query('SELECT password FROM public.user WHERE email=$1',[reqUser.email])
                 let comparePassword = bcrypt.compareSync(hashedPassword,lastPassword.rows[0].password)
@@ -73,7 +72,7 @@ class UserController{ //Класс для взаимодействия с пол
         }
     }
     async checkUser(req,res){
-        const token = generateJWT(req.user.id,req.user.email,req.user.role)
+        const token = generateJWT(req.user.id,req.user.email,req.user.role,req.user.name)
         return res.json({token})
     }
     async deleteUser(req,res){

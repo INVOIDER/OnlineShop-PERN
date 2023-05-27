@@ -1,4 +1,6 @@
 .deviceList{
+    grid-area: DeviceList;
+    min-height: 70vh;
     display: grid;
     padding: 2vh;
     grid-template-columns: 1fr 1fr 1fr 1fr;

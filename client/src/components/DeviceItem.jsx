@@ -14,7 +14,7 @@ const DeviceItem = ({device}) => {
     return (
         <div className={classes.deviceItem}>
             <div className={classes.deviceImg}  onClick={handleClick}>
-                <img className={classes.Img} src="https://avatars.mds.yandex.net/get-mpic/4615030/img_id6990483609829537403.jpeg/orig" alt={device.name} title={device.name}/>
+                <img className={classes.Img} src={process.env.REACT_APP_API_URL + device.img} alt={device.name} title={device.name}/>
             </div>
             <div className={classes.deviceName} onClick={handleClick} title={device.name}>{device.name}</div>
             <div className={classes.devicePrice}>{device.price} р.</div>

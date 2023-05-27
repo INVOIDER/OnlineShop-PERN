@@ -1,4 +1,5 @@
 .filterbarContainer{
+    grid-area: filterbar;
     border: 1px solid black;
     padding: 2vh;
     min-width: 11vw;
@@ -14,8 +15,15 @@
     word-wrap: break-word;
     height: 5vh;
 }
-.li{
+.SectionElement{
     padding: 1vh 1vh;
+    cursor: pointer;
+
+}
+.SectionElementActive{
+    padding: 1vh 1vh;
+    cursor: pointer;
+    background-color: #755BB4;
 }
 .filterBlock{
     background-color: #d5d5d5;

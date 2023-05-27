@@ -2,17 +2,33 @@ import React, {useEffect, useState} from 'react';
 import InputLine from "./UI/input/InputLine";
 import Btn from "./UI/button/Btn";
 import classes from "../styles/modal.module.css";
+import {createBrand} from "../http/deviceAPI";
 
 const CreateBrand = ({Active}) => {
     const [name,setName] = useState('');
     const [error, setError] = useState('');
     const [successMsg, setSuccessMsg] = useState('')
 
+    const clearData = ()=>{
+        setName('')
+        setSuccessMsg('')
+        setError('')
+    }
+    const addBrand = async ()=>{
+        try{
+            await createBrand({name:name})
+            setError('')
+            setSuccessMsg(`Бренд '${name}' был успешно добавлен!`)
+        }catch (e){
+            console.log(e.response.data.message)
+            setSuccessMsg('')
+            setError(e.response.data.message)
+
+        }
+    }
     useEffect(()=>{
         if(!Active){
-            setName('')
-            setSuccessMsg('')
-            setError('')
+            clearData()
         }
     },[Active])
 
@@ -20,7 +36,7 @@ const CreateBrand = ({Active}) => {
         setName(e.target.value);
     };
 
-    let handleSubmit = (e) => {
+    let handleSubmit = async (e) => {
         e.preventDefault();
         console.log(name)
         if (!/[A-Za-zА-Яа-яЁё]/.test(name) && name) {
@@ -29,10 +45,7 @@ const CreateBrand = ({Active}) => {
         {
             // отправляем данные на сервер или выполняем другие действия
             console.log('Имя бренда:', name);
-            setSuccessMsg('Тип был успешно добавлен!')
-            setError('')
-            setName('')
-            // setActive(false)
+            await addBrand()
         }
     };
     return (

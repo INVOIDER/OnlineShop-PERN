@@ -1,8 +1,12 @@
 const {pool} = require("../db")
 const ApiError = require("../error/ApiError");
 class Type_controller{
-    async create(req,res){
+    async create(req,res,next){
         const {name} = req.body
+        const candidate = await pool.query('SELECT name FROM public.type WHERE name=$1',[name])
+        if(candidate.rows[0]){
+            return next(ApiError.badRequest('Такой тип уже существует!'))
+        }
         const type = await pool.query("INSERT INTO public.type (name) VALUES ($1) RETURNING *",[name])
         return res.json(type.rows)
     }
@@ -14,7 +18,7 @@ class Type_controller{
         try {
             const {id} = req.params;
             await pool.query('DELETE FROM public.type WHERE id=$1', [id]);
-            res.json('Type was deleted!');
+            res.json(`Тип был успешно удалён!`);
         } catch (e) {
             next(ApiError.internal("Невозможно удалить"))
         }

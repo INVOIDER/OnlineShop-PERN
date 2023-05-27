@@ -8,13 +8,13 @@ class Product_controller {
         try {
             const {name, typeID, brandID, price, amount, description} = req.body
             const {img} = req.files
+            console.log(name, typeID, brandID, price, amount, description)
             let fileName = uuid.v4() + ".jpg"
             await img.mv(path.resolve(__dirname, '..', 'static', fileName))
-
             const device = pool.query('INSERT INTO public.product(name, "typeID", "brandID", price,amount, img, description)VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *', [name, typeID, brandID, price, amount, fileName, description])
             return res.json(device.rows)
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.badRequest('Ошибка!'))
         }
 
     }
@@ -28,6 +28,7 @@ class Product_controller {
         let devices;
         if (!brandID && !typeID) {
             devices = await pool.query('SELECT *, COUNT(*) OVER() as count FROM public.product LIMIT $1 OFFSET $2', [limit, offset])
+            devices.count = await pool.query('SELECT COUNT(*) OVER() as count FROM public.product LIMIT $1 OFFSET $2', [limit, offset])
         }
         if (!brandID && typeID) {
             devices = await pool.query('SELECT *, COUNT(*) OVER() as count FROM public.product WHERE "typeID"=$1 LIMIT $2 OFFSET $3', [typeID, limit, offset])
@@ -44,7 +45,7 @@ class Product_controller {
     async getOne(req, res) {
         const {id} = req.params
         const device = await pool.query('SELECT * FROM public.product WHERE id=$1 LIMIT 1', [id])
-        return res.json(device.rows)
+        return res.json(device.rows[0])
     }
 
     async deleteOne(req, res, next) {
