@@ -14,8 +14,8 @@ const Modal = ({children,active,setActive}) => {
     return (
         <div className={active ? classes.modalActive : classes.modalClosed} onClick={()=> setActive(false)}>
             <div className={classes.modalBody} onClick={e=> e.stopPropagation()}>
+                {children}
                 <div className={classes.modalFooter}>
-                    {children}
                     <div className={classes.modalCloseBtn}><Btn  style={{backgroundColor: 'red'}} onClick={()=> setActive(false)}>Закрыть</Btn></div>
                 </div>
             </div>

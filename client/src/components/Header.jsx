@@ -3,7 +3,8 @@ import {Link, NavLink, useNavigate} from "react-router-dom";
 import classes from "../styles/header.module.css"
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {ADMIN_ROUTE, BASKET_ROUTE, DEVICES_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE} from "./utils/consts";
+import {ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE} from "./utils/consts";
+import SelectTypes from "./selectTypes";
 
 /**
  * Header страницы. Содержит логотип и навигационную панель
@@ -12,8 +13,11 @@ import {ADMIN_ROUTE, BASKET_ROUTE, DEVICES_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SH
  * @constructor
  */
 const Header = observer(() => {
-    const [isBurger, setIsBurger] = useState(false)
+    const [isBurger, setIsBurger] = useState(false);
+    const [selectTypeActive, setSelectTypeActive] = useState(false)
+
     const {user} = useContext(Context)
+    console.log("Вы - ",user.user.data.role)
     let navigate = useNavigate();
     const burgerMenuHandler = () =>{
         setIsBurger(!isBurger)
@@ -28,17 +32,18 @@ const Header = observer(() => {
         navigate(LOGIN_ROUTE)
     }
     let isAdmin = (user.user.data?.role ?  user.user.data.role === "Admin" :false)
-    console.log(user.user.data?.role ?  user.user.data.role === "Admin" :false)
     return (
         <header className={classes.header}>
             <div >
                 <Link to={SHOP_ROUTE}><img src={require ("../mediaSrc/header/logo.png")} alt="Device division"/></Link>
             </div>
             <div className={isBurger ? classes.navbarBurger : classes.navbar}>
-                <NavLink to={DEVICES_ROUTE}>
-                <div className= {classes.categories}>
-                    <img src={require ("../mediaSrc/header/categories.png")} alt="Categories"/> <span className={classes.span}>Девайсы</span>
-                </div></NavLink>
+                        <div className= {classes.categories} onClick={()=>setSelectTypeActive(true)}>
+                            <img src={require ("../mediaSrc/header/categories.png")} alt="Categories"/>
+                            <span className={classes.span}>Девайсы</span>
+                        </div>
+
+
                 {user.isAuth ?
                     <ul className={classes.ul}>
                         <li className={classes.li} onClick={LogOut}>Выйти</li>
@@ -73,6 +78,12 @@ const Header = observer(() => {
             </div>
             <div className={classes.navBurgerBtn} onClick={burgerMenuHandler}>
                 <img src={require("../mediaSrc/header/burger.png") } alt="burger"/>
+            </div>
+
+            <div className={selectTypeActive ? classes.TypeSelectorActive : classes.TypeSelectorClosed} onClick={()=> {setSelectTypeActive(false); console.log('SelectType is: ',selectTypeActive)}}>
+                <div className={classes.modalBody} onClick={e=> e.stopPropagation()}>
+                    <SelectTypes Active={setSelectTypeActive}/>
+                </div>
             </div>
         </header>
     );

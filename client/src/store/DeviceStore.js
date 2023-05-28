@@ -6,7 +6,7 @@ class DeviceStore{
         this._brands = []
         this._devices = []
         this._selectedBrand = {}
-        this._selectedType = {}
+        this._selectedType = 1
         this._page = 1
         this._totalCount=0
         this._limit=3

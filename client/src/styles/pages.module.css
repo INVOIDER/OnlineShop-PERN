@@ -1,5 +1,4 @@
 .paginationContent{
-    border-top: 1px solid black;
     grid-area: Pages;
     display: flex;
     justify-content: center;

@@ -4,24 +4,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-block: 2vh;
-    height: 7vh;
     font-size: 1.2rem;
-    gap: 2%;
+    gap: 1vw;
+    min-height: 4vw;
     box-sizing: border-box;
 }
 .img{
     max-width: 100%;
     height: auto;
 }
-.left-nav{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2vh;
-}
 .navbar{
-    /*background-color: #fdc97a;*/
     display: flex;
     width: 100%;
     overflow: hidden;
@@ -29,7 +21,7 @@
     flex-direction: row;
     justify-content: space-between;
     max-width: 100%;
-    height: auto;
+
 }
 .ul{
     display: flex;
@@ -52,6 +44,32 @@
     right: 0;
     cursor: pointer;
 }
+
+
+.TypeSelectorActive{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.2);
+    top: 0;
+    left: 0;
+}
+.modalBody{
+    padding: 5vh;
+    border-radius: 5%;
+    background-color: white;
+}
+.TypeSelectorClosed{
+    display: none;
+    pointer-events: none;
+}
+.TypeSelectorItem{
+
+}
 .navbarBurger{
     display: none;
     flex-direction: column;
@@ -59,16 +77,18 @@
     align-items: center;
 }
 .categories{
-    padding: 2% 0;
+    padding: 1vw 0;
+    cursor: pointer;
 }
 .span{
     margin: auto 0;
 }
 @media screen and (max-width: 1000px) {
     .header{
+        padding: 2vh;
         flex-direction: column;
-        height: auto;
         font-size: 1.2rem;
+        gap: 0;
     }
     .navbar{
         display: none;
@@ -80,20 +100,22 @@
         flex-direction: row;
     }
     .ul{
-        padding: 5% 0;
         display: block;
-        gap: 2vh;
     }
     .li{
+        border-top: 1px solid white;
         width: 100vw;
-        padding: 5% 0;
+        padding: 5vw 0;
         margin: 0;
     }
     .categories{
-        width: 100vw;
-        height: 5vh;
+        width: 100%;
     }
     .navbarBurger{
         display: flex;
+        flex-direction: column;
+    }
+    .modalBody{
+        width: 100%;
     }
 }

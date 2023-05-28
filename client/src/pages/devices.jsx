@@ -18,7 +18,7 @@ const Devices = observer(() => {
     },[])
 
     useEffect(()=> {
-        getDevices(device.selectedType.id,device.selectedBrand,device.page,3).then(data=> {
+        getDevices(device.selectedType,device.selectedBrand,device.page,3).then(data=> {
             device.setDevices(data)
             device.setTotalCount(data[0]?.count || 0)
         })
@@ -29,7 +29,6 @@ const Devices = observer(() => {
                 <FilterBar/>
                 <DeviceList/>
                 <Pages/>
-
             </div>
         </section>
     );
