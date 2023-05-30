@@ -1,0 +1,58 @@
+.cartPageWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cartSection{
+    padding: 2vw 0;
+    min-width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.deviceItem{
+    width: inherit;
+    display: grid;
+    grid-template-areas: 'img deviceName price'
+                         'img deleteBtn AdMinusBtn';
+}
+.deviceImg{
+    justify-self: start;
+    align-self: start;
+    grid-area: img;
+    height: 10vw;
+    width: 10vw;
+    overflow: hidden;
+}
+.deleteBtn{
+    grid-area: deleteBtn;
+    justify-self: start;
+    align-self: start;
+}
+.amountBlock{
+    grid-area: AdMinusBtn;
+    display: flex;
+    flex-direction: column;
+}
+.amountChangers{
+    display: flex;
+    flex-direction: row;
+}
+.deviceName{
+    width: 50vw;
+    grid-area: deviceName;
+}
+.devicePrice{
+    grid-area: price;
+}
+.Img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.cartBtns{
+    width: 10vw;
+}
+.cartEmpty{
+    margin: 2vw 0;
+    font-size: 1.4rem;
+}

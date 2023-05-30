@@ -3,6 +3,7 @@ import classes from "../styles/DevicePage.module.css";
 import Btn from "../components/UI/button/Btn";
 import {useParams} from "react-router-dom";
 import {getOneDevice} from "../http/deviceAPI";
+import {addToCart} from "../http/cartAPI";
 
 const DevicePage = () => {
     const [device,setDevice] = useState({})
@@ -12,7 +13,8 @@ const DevicePage = () => {
         console.log(device[0])
     },[])
     const handleBuy = async ()=>{
-        await console.log(device.name," добавлен в корзину")
+        console.log(device.id)
+        await addToCart(device.id).then(console.log("Товар",device.name, " был успешно добавлен в корзину"))
     }
     return (
         <div className={classes.devicePage}>

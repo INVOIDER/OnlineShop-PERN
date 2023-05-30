@@ -20,6 +20,7 @@ class UserController{ //Класс для взаимодействия с пол
         const usersInfo = [email,name,surname,role,hashPass]
         const user = await pool.query("INSERT INTO public.user (email,name,surname,role,password) VALUES ($1,$2,$3,$4,$5) RETURNING *",usersInfo)
         let customer = user.rows[0]
+        await pool.query("INSERT INTO public.cart (user_id) VALUES ($1)",[customer.id])
         const token = generateJWT(customer.id,email,role,name)
         return res.json({token})
     }
