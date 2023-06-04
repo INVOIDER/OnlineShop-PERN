@@ -5,14 +5,14 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS public.brand
 (
-    id smallint NOT NULL DEFAULT nextval('brand_id_seq'::regclass),
-    name character varying COLLATE pg_catalog."default",
+    id SERIAL NOT NULL,
+    name character varying ,
     CONSTRAINT brand_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.cart
 (
-    cart_id integer NOT NULL DEFAULT nextval('cart_cart_id_seq'::regclass),
+    cart_id SERIAL NOT NULL,
     user_id integer,
     CONSTRAINT cart_pkey PRIMARY KEY (cart_id)
 );
@@ -23,38 +23,38 @@ CREATE TABLE IF NOT EXISTS public.cart_items
     product_id integer NOT NULL,
     quantity smallint DEFAULT 1,
     price integer,
-    id integer NOT NULL DEFAULT nextval('cart_items_id_seq'::regclass),
+    id SERIAL NOT NULL,
     CONSTRAINT cart_items_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.product
 (
-    id integer NOT NULL DEFAULT nextval('product_id_seq'::regclass),
-    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    id SERIAL NOT NULL,
+    name character varying(100)  NOT NULL,
     "typeID" smallint,
     "brandID" smallint,
     price integer,
     amount smallint,
-    img character varying(100) COLLATE pg_catalog."default",
-    description text COLLATE pg_catalog."default",
+    img character varying(100) ,
+    description text ,
     CONSTRAINT product_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.type
 (
-    id smallint NOT NULL DEFAULT nextval('type_id_seq'::regclass),
-    name character varying(25) COLLATE pg_catalog."default" NOT NULL,
+    id SERIAL NOT NULL,
+    name character varying(25)  NOT NULL,
     CONSTRAINT type_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public."user"
 (
-    id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
-    email character varying(40) COLLATE pg_catalog."default" NOT NULL,
-    name character varying(15) COLLATE pg_catalog."default",
-    surname character varying(30) COLLATE pg_catalog."default",
-    role character varying(10) COLLATE pg_catalog."default" NOT NULL DEFAULT 'Customer'::character varying,
-    password character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    id SERIAL NOT NULL,
+    email character varying(40) NOT NULL,
+    name character varying(15) ,
+    surname character varying(30) ,
+    role character varying(10)  NOT NULL DEFAULT 'Customer'::character varying,
+    password character varying(100)  NOT NULL,
     CONSTRAINT user_pkey PRIMARY KEY (id),
     CONSTRAINT email_unique UNIQUE (email)
 );

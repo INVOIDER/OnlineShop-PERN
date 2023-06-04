@@ -43,4 +43,4 @@ services:
       PGADMIN_DEFAULT_EMAIL: postgres@test.ru
       PGADMIN_DEFAULT_PASSWORD: postgres
     volumes:
-      - ./data/pgadmin:/var/lib/pgadmin:rw
+      - ./db/pgadmin:/var/lib/pgadmin:rw

@@ -14,7 +14,7 @@ const DevicePage = () => {
     },[])
     const handleBuy = async ()=>{
         console.log(device.id)
-        await addToCart(device.id).then(console.log("Товар",device.name, " был успешно добавлен в корзину"))
+        await addToCart(device.id)
     }
     return (
         <div className={classes.devicePage}>

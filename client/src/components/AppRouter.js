@@ -28,14 +28,12 @@ const AppRouter = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<Main/>}/>
+            <Route path={DEVICES_ROUTE} element={<Devices/>}/>
             <Route path={LOGIN_ROUTE} element={<Auth/>}/>
             <Route path={REG_ROUTE} element={<Auth/>}/>
-            <Route path={DEVICES_ROUTE} element={<Devices/>}/>
             <Route path={DEVICE_ROUTE} element={<DevicePage/>}/>
             <Route path={ADMIN_ROUTE} element= {<AuthChecker><AdminChecker><Admin/></AdminChecker></AuthChecker>}/>
             <Route path={BASKET_ROUTE} element= {<AuthChecker><CartPage/></AuthChecker>}/>
-            <Route path={PROFILE_ROUTE} element= {<AuthChecker><ErrorPage/></AuthChecker>}/>
             <Route path="*" element={<ErrorPage/>}/>
         </Routes>
 
