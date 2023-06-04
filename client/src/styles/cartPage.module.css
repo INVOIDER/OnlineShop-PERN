@@ -36,6 +36,7 @@
 .amountChangers{
     display: flex;
     flex-direction: row;
+    gap: 2%;
 }
 .deviceName{
     width: 50vw;

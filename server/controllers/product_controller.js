@@ -20,7 +20,6 @@ class Product_controller {
     }
 
     async getAll(req, res) {
-        // const product = await pool.query('SELECT * FROM public.product')
         let {brandID, typeID, limit, page} = req.query
         page = page || 1 //Номер страницы, которую нужно вывести
         limit = limit || 8 //Максимум элементов на странице
@@ -32,12 +31,15 @@ class Product_controller {
         }
         if (!brandID && typeID) {
             devices = await pool.query('SELECT *, COUNT(*) OVER() as count FROM public.product WHERE "typeID"=$1 LIMIT $2 OFFSET $3', [typeID, limit, offset])
+            devices.count =await pool.query('SELECT COUNT(*) OVER() as count FROM public.product WHERE "typeID"=$1 LIMIT $2 OFFSET $3', [typeID, limit, offset])
         }
         if (brandID && !typeID) {
             devices = await pool.query('SELECT *, COUNT(*) OVER() as count FROM public.product WHERE "brandID"=$1 LIMIT $2 OFFSET $3', [brandID, limit, offset])
+            devices.count = await pool.query('SELECT COUNT(*) OVER() as count FROM public.product WHERE "brandID"=$1 LIMIT $2 OFFSET $3', [brandID, limit, offset])
         }
         if (brandID && typeID) {
             devices = await pool.query('SELECT *, COUNT(*) OVER() as count FROM public.product WHERE "brandID"=$1 AND "typeID"=$2 LIMIT $3 OFFSET $4', [brandID, typeID, limit, offset])
+            devices.count = await pool.query('SELECT COUNT(*) OVER() as count FROM public.product WHERE "brandID"=$1 AND "typeID"=$2 LIMIT $3 OFFSET $4', [brandID, typeID, limit, offset])
         }
         res.json(devices.rows)
     }

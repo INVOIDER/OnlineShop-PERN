@@ -1,17 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import classes from "../styles/deviceItem.module.css";
 import Btn from "./UI/button/Btn";
 import { useNavigate } from 'react-router-dom';
-import {DEVICES_ROUTE} from "./utils/consts";
+import {DEVICES_ROUTE, LOGIN_ROUTE} from "./utils/consts";
 import {addToCart} from "../http/cartAPI";
+import {Context} from "../index";
 const DeviceItem = ({device}) => {
+    const {user} = useContext(Context)
     const navigate = useNavigate()
     const handleClick = ()=>{
         navigate(DEVICES_ROUTE +'/' + device.id)
     }
     const handleBuy = async ()=>{
-        console.log(device.id)
-        await addToCart(device.id).then(console.log("Товар",device.name, " был успешно добавлен в корзину"))
+        if(user.isAuth){
+            await addToCart(device.id).then(console.log("Товар",device.name, " был успешно добавлен в корзину"))
+        }else{
+            navigate(LOGIN_ROUTE)
+        }
+
     }
     return (
         <div className={classes.deviceItem}>

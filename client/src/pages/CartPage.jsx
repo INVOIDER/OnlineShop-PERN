@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../index";
 import classes from "../styles/cartPage.module.css";
 import {deleteAll, deleteItem, deleteOne, getCart, updateOne} from "../http/cartAPI";
@@ -8,43 +8,49 @@ import {observer} from "mobx-react-lite";
 
 const CartPage = observer(() => {
     const {user} = useContext(Context)
+    const [loading,setLoading] = useState(true)
     const fetchData =async ()=>{
         const data = await getCart()
-        await user.setCart(data)
-    }
-    useEffect( () => {
-        console.log('UseEffect запущен')
-        fetchData()
-    },[])
+        const copyData = Object.assign([], data); // или const copyData = [...data];
+        await user.setCart(copyData);
+    };
+
     useEffect(()=>{
         console.log('UseEffect изменен')
         fetchData()
-    },[user.cart])
+    },[])
     const deleteDevice = async (id)=>{
-        console.log('Выхвана')
+        console.log('Вызвана')
         await deleteItem(id)
+        await fetchData()
     }
     const deleteOneItem = async (id,amount)=>
     {
         if(amount<=1){
+            console.log('Current amount ',amount, ' it is less')
             await deleteDevice(id)
+            await fetchData()
         }else{
+            console.log('Current amount ',amount, ' it is more')
             await deleteOne(id)
+            await fetchData()
         }
     }
     const addDevice = async (id)=>{
         await updateOne(id)
+        await fetchData()
     }
     const deleteCart = async ()=>{
         console.log('Удаляю...')
         console.log('user cart До удаления: ', user.cart)
-        await deleteAll().then(user.setCart(undefined))
+        await deleteAll().then(user.setCart([]))
         console.log('user cart после удаления: ', user.cart)
     }
     return (
         <div className={classes.cartPageWrapper}>
-            {user.cart ===undefined ?
-            <div className={classes.cartEmpty}>Ваша корзина пуста</div> :
+            {Object.keys(user.cart).length <=0 ?
+            <div className={classes.cartEmpty}>Ваша корзина пуста</div>
+                :
             <div className={classes.cartSection}>
                 {user.cart.map(device =>
                     <div className={classes.deviceItem} key={device.id}>

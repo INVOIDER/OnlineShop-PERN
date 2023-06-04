@@ -11,14 +11,14 @@ const Devices = observer(() => {
     useEffect(()=>{
         getTypes().then(data=> device.setTypes(data))
         getBrands().then(data=> device.setBrands(data))
-        getDevices(null,null,1,3).then(data=>{
+        getDevices(null,null,1,20).then(data=>{
             device.setDevices(data)
-            device.setTotalCount(data[0].count)
+            device.setTotalCount(data[0]?.count || 0)
         })
     },[])
 
     useEffect(()=> {
-        getDevices(device.selectedType,device.selectedBrand,device.page,3).then(data=> {
+        getDevices(device.selectedType,device.selectedBrand,device.page,20).then(data=> {
             device.setDevices(data)
             device.setTotalCount(data[0]?.count || 0)
         })

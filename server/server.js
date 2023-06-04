@@ -8,7 +8,7 @@ require('dotenv').config() //Подключаем библиотеку пере�
 const {pool} = require("./db") //Подключаем файл для бд
 const router = require("./routes/router") //Подключаем главный роутер
 const errorHandler = require('./middleware/ErrorHandler') //Подключаем обработчик ошибок
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const server = express() // Создание экземпляра express
 
@@ -21,6 +21,7 @@ server.use(errorHandler) //Подключаем обработчик ошибо�
 server.listen(PORT,() =>{
     console.log(`Сервер запущен на порту ${PORT}`);
     pool.connect()
+    console.log('DB_HOST',process.env.DB_HOST)
 });
 
 server.get('/', function (req, res){

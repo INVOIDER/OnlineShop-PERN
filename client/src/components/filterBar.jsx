@@ -8,14 +8,15 @@ const FilterBar = observer(() => {
     const {device} = useContext(Context)
     const [typeName,setTypeName]= useState('')
     useEffect(()=> {
-        console.log("enter")
         device.types.map(type => {
             if(device.selectedType === type.id)
                 setTypeName(type.name)
             }
         )
     },[device.selectedType])
-
+const clearFilters = async ()=>{
+        device.setSelectedBrand('')
+}
     return (
         <div className={classes.filterbarContainer}>
             <div>
@@ -32,6 +33,8 @@ const FilterBar = observer(() => {
                     </ul>
                 </section>
             </div>
+            <div className={classes.clearBtn}><Btn onClick={clearFilters}>Очистить</Btn></div>
+
         </div>
     );
 });

@@ -11,11 +11,17 @@ const App = observer(()=> {
     const {user} = useContext(Context)
     const [loading,setLoading] = useState(true)
     useEffect(()=>{
+        try{
             check().then(data=>{
                 user.setUser({data})
                 user.setIsAuth(true)
-                console.log('Вы - ', user.user.data.name)
-            }).finally(()=> setLoading(false))
+                console.log('Вы - ', user.user?.data?.name)
+            },null).finally(()=> setLoading(false))
+        }catch (e){
+            setLoading(false)
+            console.log('Вы неавторизованы')
+        }
+
     },[])
 
     if (loading){

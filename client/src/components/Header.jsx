@@ -17,7 +17,8 @@ const Header = observer(() => {
     const [selectTypeActive, setSelectTypeActive] = useState(false)
 
     const {user} = useContext(Context)
-    console.log("Вы - ",user.user.data.role)
+    user.user.data?.role ? console.log("Вы - ",user.user.data.role) : console.log('Вы ещё не авторизовались!')
+
     let navigate = useNavigate();
     const burgerMenuHandler = () =>{
         setIsBurger(!isBurger)
@@ -51,7 +52,7 @@ const Header = observer(() => {
                         <li className={classes.li}><NavLink to={PROFILE_ROUTE}>
                             <div className={classes.navBlock}>
                                 <img src={require ("../mediaSrc/header/user.png")} alt="User"/>
-                                <span>{user.user.data.name}</span>
+                                <span>{user.user?.data?.name}</span>
                             </div>
                         </NavLink></li>
                         {isAdmin ?

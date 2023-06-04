@@ -2,7 +2,7 @@
     grid-area: filterbar;
     border: 1px solid black;
     padding: 2vh;
-    min-width: 11vw;
+    width: 100%;
     background-color: #f8f8f8;
     border-radius: 10px;
 }
@@ -35,6 +35,9 @@
 .Img{
     max-width: 1.4rem;
     max-height: 1.4rem;
+}
+.clearBtn{
+    padding: 1vw 2vw;
 }
 
 @media screen and (max-width: 1400px) {

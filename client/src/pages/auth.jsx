@@ -84,6 +84,7 @@ const Auth = observer(() => {
         setError('');
     }
 return (
+    <div className={auth.AuthPage}>
         <section className={auth.Auth}>
             {isLogin ? <h1>Авторизация</h1> : <h1>Регистрация</h1>}
             {isLogin ?
@@ -99,10 +100,9 @@ return (
                             <p className={auth.notice}>Нет аккаунта?</p>
                             <Link className={auth.Link} onClick={unsetVars} to='/registration'>Зарегистрироваться</Link>
                         </div>
-
                     </div>
                 </form>
-            :
+                :
                 <form onSubmit={handleSubmit} className={auth.inputForm} >
                     <div className={auth.inputBlock}>
                         <InputLine type="email" id="userEmail" value={email} onChange={handleEmailChange} required placeholder="Введите email..."/>
@@ -112,7 +112,7 @@ return (
                         {error ? <p className={auth.error}>{error}</p> : null}
                     </div>
                     <div className={auth.authButtons}>
-                    <Btn type="submit">Зарегистрироваться</Btn>
+                        <Btn type="submit">Зарегистрироваться</Btn>
                         <div className={auth.anotherOption}>
                             <p className={auth.notice}>Уже есть аккаунт?</p>
                             <Link className={auth.Link} onClick={unsetVars} to='/login'>Войти</Link>
@@ -121,6 +121,8 @@ return (
                 </form>
             }
         </section>
+    </div>
+
     );
 });
 

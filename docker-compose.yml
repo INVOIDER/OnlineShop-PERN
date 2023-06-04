@@ -1,0 +1,46 @@
+version: '3.1'
+services:
+  shop-react:
+    build: ./client
+    image: onlineshopreact
+    container_name: shop-react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/client
+  shop-nodejs:
+    build: ./server
+    image: onlineshopjs
+    container_name: shop-nodejs
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - shop-DB
+  shop-DB:
+    image: postgres:latest
+    hostname: postgres
+    container_name: shop-DB
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: onlineshop
+    volumes:
+      - ./db/postgres:/var/lib/postgresql:rw
+    ports:
+      - "5432:5432"
+  shop-DB-interface:
+    image: dpage/pgadmin4:latest
+    container_name: shop-DB-interface
+    restart: unless-stopped
+    depends_on:
+      - shop-DB
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@test.ru
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin:rw

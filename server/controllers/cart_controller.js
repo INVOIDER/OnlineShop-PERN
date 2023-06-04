@@ -38,11 +38,10 @@ class Cart_controller {
     }
     async deleteAll(req,res,next){
         try{
-            console.log('enTer')
             const clearCartQuery = 'DELETE FROM public.cart_items WHERE cart_id = (SELECT cart_id FROM public.cart WHERE user_id = $1)';
             const clearCartValues = req.user.id;
-            console.log('id = ',req.user.id)
             await pool.query(clearCartQuery, [clearCartValues]);
+            res.json('Корзина очищена')
         }catch (e){
             next(ApiError.badRequest(e.message))
         }
@@ -74,13 +73,13 @@ class Cart_controller {
     async DeleteOne(req,res,next){
         try {
             const userId = req.user.id
-            const productId = Number(req.params.id)
             console.log('userID = ',userId)
+            const productId = Number(req.params.id)
             console.log('productID = ',Number(productId))
-            const clearCartQuery = 'DELETE FROM cart_items WHERE cart_id = (SELECT cart_id FROM carts WHERE user_id = $1) AND product_id = $2';
+            const clearCartQuery = 'DELETE FROM public.cart_items WHERE cart_id = (SELECT cart_id FROM public.cart WHERE user_id = $1) AND product_id = $2';
             const clearCartValues = [userId,productId];
             await pool.query(clearCartQuery, clearCartValues);
-            return res.end('success')
+            return res.end('удалено')
         } catch (err) {
             next(ApiError.badRequest(err.message))
         }

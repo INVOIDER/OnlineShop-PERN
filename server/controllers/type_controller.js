@@ -11,7 +11,7 @@ class Type_controller{
         return res.json(type.rows)
     }
     async getAll(req,res){
-        const types = await pool.query('SELECT * FROM public.type')
+        const types = await pool.query('SELECT * FROM public.type ORDER BY type.id')
         res.json(types.rows)
     }
     async deleteOne(req, res, next) {

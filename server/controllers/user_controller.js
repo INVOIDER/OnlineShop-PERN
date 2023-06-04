@@ -40,7 +40,7 @@ class UserController{ //Класс для взаимодействия с пол
         }
         /*Debug*/ console.log(user.rows[0].id,email,user.rows[0].role,user.rows[0].name,"\n\n\n\n")
 
-        const token = generateJWT(user.rows[0].id,email,user.rows[0].role,user.rows[0].name,"\n\n\n\n")
+        const token = generateJWT(user.rows[0].id,email,user.rows[0].role,user.rows[0].name)
         return res.json({token})
     }
     async updateUser(req,res,next){
